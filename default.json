@@ -1,0 +1,110 @@
+{
+    "url": [
+        "https://docs.google.com/spreadsheets/d/e/LeTtErSAnDnUmBeRs/pub?gid=123456789&single=true&output=csv",
+        "Spreadsheet (CSV) URL/path.\nFORMAT: {fullURL} or ./{subfolders}/{filename}.csv"
+    ],
+    "LQPS": [
+        "PQS",
+        "Label for Qualifications Point Sum. The label of the column where the sum of the qualifications points is stored.\nFORMAT: {columnname}"
+    ],
+    "picture_column": [
+        "Photos",
+        "column where the name of pictures of the members are stored.\nFORMAT: {columnname}"
+    ],
+    "save_folder": [
+        "cards",
+        "folder where the cards will be saved.\nFORMAT: ./{pathtofolder}"
+    ],
+    "picture_folder": [
+        "photos",
+        "folder where the pictures of the members are stored.\nFORMAT: ./{pathtofolder}"
+    ],
+    "h_font_path": [
+        "./Staatliches.ttf",
+        "path to the font file for the heading. It needs to be a TrueTypeFont format (.ttf).\nFORMAT: ./{subfolders}/{filename}.ttf"
+    ],
+    "t_font_path": [
+        "./Gabarito.ttf",
+        "path to the font file for the text. It needs to be a TrueTypeFont format (.ttf).\nFORMAT: ./{subfolders}/{filename}.ttf"
+    ],
+    "g_diam_w": [
+        "./temp2.png",
+        "path to the white diamond image.\nFORMAT: ./{subfolders}/{filename}.{imageextension}"
+    ],
+    "g_diam_b": [
+        "./temp.png",
+        "path to the black diamond image.\nFORMAT: ./{subfolders}/{filename}.{imageextension}"
+    ],
+    "bg": [
+        "./canvas.png",
+        "path to the background image.\nFORMAT: ./{subfolders}/{filename}.{imageextension}"
+    ],
+    "h_width_fraction": [
+        0.95,
+        "portion of canvas width the HEADING text width aim to be.\nFORMAT: {number}"
+    ],
+    "t_width_fraction": [
+        1,
+        "portion of canvas width the text width aim to be.\nFORMAT: {number}"
+    ],
+    "dpi": [
+        300,
+        "dots per inch.\nFORMAT: {number}"
+    ],
+    "canvasx": [
+        10.5,
+        "canvas width in cm.\nFORMAT: {number}"
+    ],
+    "canvasy": [
+        14.8,
+        "canvas height in cm.\nFORMAT: {number}"
+    ],
+    "XH": [
+        375,
+        "X coordinate of the heading.\nFORMAT: {number}"
+    ],
+    "YH": [
+        375,
+        "Y coordinate of the heading.\nFORMAT: {number}"
+    ],
+    "XK": [
+        50,
+        "X coordinate of the key.\nFORMAT: {number}"
+    ],
+    "GYK1": [
+        550,
+        "Y coordinate1 of the key.\nFORMAT: {number}"
+    ],
+    "GYK2": [
+        85,
+        "Y coordinate2 of the key.\nFORMAT: {number}"
+    ],
+    "Px": [
+        3.5,
+        "Photo width in cm.\nFORMAT: {number}"
+    ],
+    "Py": [
+        4.5,
+        "Photo height in cm.\nFORMAT: {number}"
+    ],
+    "P_y": [
+        200,
+        "Y coordinate of the picture.\nFORMAT: {number}"
+    ],
+    "redux1": [
+        0.7,
+        "reduction factor of the picture after a first resize to standart photo format.\nFORMAT: {number}"
+    ],
+    "Dx": [
+        0.5,
+        "Diamond width in cm.\nFORMAT: {number}"
+    ],
+    "Dy": [
+        0.5,
+        "Diamond height in cm.\nFORMAT: {number}"
+    ],
+    "redux2": [
+        1.2,
+        "reduction factor of the picture after a first resize.\nFORMAT: {number}"
+    ]
+}
