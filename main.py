@@ -49,9 +49,10 @@ if args.config_name == None: # If no config file is specified, the default one i
         EV = load(open(cfl)) #EXTERIOR VARIABLES
     elif path.isfile(cfl) and (path.getsize(cfl) == 0): # If the config file exist but is empty, it is filled with the default values
         def_config = {
-            "url": ["https://docs.google.com/spreadsheets/d/e/LeTtErSAnDnUmBeRs/pub?gid=123456789&single=true&output=csv", "Spreadsheet (CSV) URL/path.\nFORMAT: {fullURL} or ./{subfolders}/{filename}.csv",],
+            "url": ["https://docs.google.com/spreadsheets/d/e/LeTtErSAnDnUmBeRs/pub?gid=123456789&single=true&output=csv", "Spreadsheet (CSV) URL/path. (An exemple is available as 'default.csv' in the root folder)\nFORMAT: {fullURL} or ./{subfolders}/{filename}.csv",],
             "LQPS": ["PQS", "Label for Qualifications Point Sum. The label of the column where the sum of the qualifications points is stored.\nFORMAT: {columnname}"],
             "picture_column": ["Photos", "column where the name of pictures of the members are stored.\nFORMAT: {columnname}"],
+            "member_column": ["Member", "column where the name of members are stored.\nFORMAT: {membername}"],
             "save_folder": ["cards", "folder where the cards will be saved.\nFORMAT: ./{pathtofolder}"],
             "picture_folder": ["photos", "folder where the pictures of the members are stored.\nFORMAT: ./{pathtofolder}"],
             "h_font_path": ["./Staatliches.ttf", "path to the font file for the heading. It needs to be a TrueTypeFont format (.ttf).\nFORMAT: ./{subfolders}/{filename}.ttf"],
@@ -149,24 +150,26 @@ if args.var:
     print("---------- ⬆️ variables ⬆️ ----------")
 
     while change=="o":
-        i1=input("Which value do you want to change ?\n")
-    
-        while not (i1.isdigit() and (int(i1) < len(EV))): # Checking if the input is a number and if it is not too high 
-            print("\nInput is not valid: Either not a number or number is too high")
-            i1=input("Which value do you want to change ?\n")
-        with open(cfl, "r+") as json_conf:
-                data = load(json_conf)
-                for k in range(len(match)):
-                    if k == int(i1):
-                        data[match.get(k)][0] =input(f"\r[{i1}] {match.get(k)}: ")
-                        json_conf.seek(0)
-                        dump(data, json_conf, indent=4)
-                        json_conf.truncate()
-        change=input("\nDo you to make another change ? [o/n]: ")
-        while change not in ["o", "n"]:
-            change=input("\nInput is not valid: It's not 'o' or 'n'\nDo you to make another change ? [o/n]: ")
-        print()
-    json_conf.close()
+        i1=input("Type the number of the value you want to change:\n(Press 'enter'(↩️) if you do not wish to change anything)\n")
+        if i1!="": # If the user doesn't want to change anything, the script is exited:
+            while not (i1.isdigit() and (int(i1) < len(EV))): # Checking if the input is a number and if it is not too high 
+                print("\nInput is not valid: Either not a number or number is too high")
+                i1=input("Type the number of the value you want to change:\n")
+            with open(cfl, "r+") as json_conf:
+                    data = load(json_conf)
+                    for k in range(len(match)):
+                        if k == int(i1):
+                            data[match.get(k)][0] =input(f"\r[{i1}] {match.get(k)}: ")
+                            json_conf.seek(0)
+                            dump(data, json_conf, indent=4)
+                            json_conf.truncate()
+            json_conf.close()
+            change=input("\nDo you to make another change ? [o/n]: ")
+            while change not in ["o", "n"]:
+                change=input("\nInput is not valid: It's not 'o' or 'n'\nDo you to make another change ? [o/n]: ")
+            print()
+        else:
+            change="n"
     #exit(0)
 
 EV = load(open(cfl)) #EXTERIOR VARIABLES
@@ -271,7 +274,7 @@ while i < len(df):
                 value = int(value)
             print("{:<{width}}: {}".format(key, value, width=max_key_length)) # printing the data
             b[key]= value # putting the data in the dictionnary that will hold all the data for this member
-        b["Membres"]= df.loc[i]["Membres"] # adding the name of the current member to the dictionnary
+        b[member_column]= df.loc[i][member_column] # adding the name of the current member to the dictionnary
         c[a]=b # putting the dictionnary of this member in the dictionnary that will hold all the data of all the users
         #print("b: {}".format(dumps(b, indent=4))) # printing the dictionnary of this member
 
@@ -315,9 +318,10 @@ for name, data in c.items():
         lenhdg = 0
 
         TXTKEY='{}: '.format(key)
-        if key == "Membres":
+        if key == member_column:
+            print(value)
             TXTHDG='{}'.format(value)
-        if key == "% Maitrise du FabLab" or "Maitrise du FabLab":
+        if key == LQPS:
             TXTVALUE='{}'.format(value)
         else:
             TXTVALUE=''
@@ -327,21 +331,23 @@ for name, data in c.items():
         lenkey=len(TXTKEY)
         lenhdg=len(TXTHDG)
 
-        if lentxt > pre_maxlen:
-            #print("TXT: {} | {} caracters".format(TXT, lentxt))
+        if lentxt > maxlentxt[1]:
+            #print("TXT (new maxlentxt): '{}' | {} caracters".format(TXT, lentxt))
             #print("maxlentxt: {} | {}".format(maxlentxt[0], maxlentxt[1]))
             maxlentxt[0]=TXT
             maxlentxt[1]=lentxt
-        if lenkey > pre_maxlenkey:
-            #print("TXTKEY: {} | {} caracters".format(TXTVALUE, lenkey))
-            #print("malxlenkey: {} | {}".format(maxlenkey[0], maxlenkey[1]))
+        if lenkey > maxlenkey[1]:
+            #print("TXTKEY (new maxlenkey) : '{}' | {} caracters".format(TXTVALUE, lenkey))
+            #print("maxlenkey: {} | {}\n".format(maxlenkey[0], maxlenkey[1]))
             maxlenkey[0]=TXTKEY
             maxlenkey[1]=lenkey
-        if lenhdg > pre_maxlenhdg:
-            #print("TXTHDG: {} | {} caracters".format(TXTHDG, lenhdg))
+        if lenhdg > maxlenhdg[1]:
+            #print("TXTHDG (new maxlenhd): {} | {} caracters".format(TXTHDG, lenhdg))
             #print("maxlenhdg: {} | {}".format(maxlenhdg[0], maxlenhdg[1]))
             maxlenhdg[0]=TXTHDG
             maxlenhdg[1]=lenhdg
+            
+    print()
 
 
 print("biggest lenght of HDG:"+ Fore.LIGHTCYAN_EX +f" \'{maxlenhdg[0]}\'"+ Style.RESET_ALL +f" | {maxlenhdg[1]} caracters")        

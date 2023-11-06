@@ -1,7 +1,7 @@
 {
     "url": [
         "https://docs.google.com/spreadsheets/d/e/LeTtErSAnDnUmBeRs/pub?gid=123456789&single=true&output=csv",
-        "Spreadsheet (CSV) URL/path.\nFORMAT: {fullURL} or ./{subfolders}/{filename}.csv"
+        "Spreadsheet (CSV) URL/path. (An exemple is available as 'default.csv' in the root folder)\nFORMAT: {fullURL} or ./{subfolders}/{filename}.csv"
     ],
     "LQPS": [
         "PQS",
@@ -10,6 +10,10 @@
     "picture_column": [
         "Photos",
         "column where the name of pictures of the members are stored.\nFORMAT: {columnname}"
+    ],
+    "member_column": [
+        "Member",
+        "column where the name of members are stored.\nFORMAT: {membername}"
     ],
     "save_folder": [
         "cards",
